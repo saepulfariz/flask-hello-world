@@ -1,0 +1,50 @@
+{% extends 'template/index.html' %}
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col text-center">
+            <h4>DATA DC_EVENTS</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table" id="example">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>EV_CODE</th>
+                        <th>EV_SUBCODE</th>
+                        <th>EVS_SEQUENCE</th>
+                        <th>PP_CODE</th>
+                        <th>MCH_CODE</th>
+                        <th>MAT_SAP_CODE</th>
+                        <th>EVS_START</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in data %}
+                    <tr>
+                        <!-- gak bisa loop counter  forloop.counter  -->
+                        <td>{{ loop.index }}</td>
+                        <td>{{d.EV_CODE}}</td>
+                        <td>{{d.EV_SUBCODE}}</td>
+                        <td>{{d.EVS_SEQUENCE}}</td>
+                        <td>{{d.PP_CODE}}</td>
+                        <td>{{d.MCH_CODE}}</td>
+                        <td>{{d.MAT_SAP_CODE}}</td>
+                        <td>{{d.EVS_START}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var dataTable = $('#example').DataTable()
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <form action="/result" method="POST">
+                <p>Name <input type="text" class="form-control" name="Name" /></p>
+                <p>Physics <input type="text" class="form-control" name="Physics" /></p>
+                <p>Chemistry <input type="text" class="form-control" name="chemistry" /></p>
+                <p>Maths <input type="text" class="form-control" name="Mathematics" /></p>
+                <p><input type="submit" class="btn btn-sm btn-primary" value="submit" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

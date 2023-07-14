@@ -8,6 +8,12 @@ masuk ke env flask dulu
 - pip install -r requirements.txt
 - pip freeze > requirements.txt
 
+- pip install python-dotenv
+
+export FLASK_APP="mainfilename.py"
+export FLASK_DEBUG=1
+python -m flask run --host=0.0.0.0
+
 https://hackersandslackers.com/plotly-dash-with-flask/
 https://www.loginworks.com/blogs/making-web-application-crud-using-flask-and-mysql/
 https://www.tutorialspoint.com/flask/flask_templates.htm

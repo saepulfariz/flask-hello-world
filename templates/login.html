@@ -1,0 +1,31 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-4 mt-3">
+
+            <h2>LOGIN</h2>
+
+            {% if error %}
+            <p><strong>Error:</strong> {{ error }}
+                {% endif %}
+
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username"
+                        value="{{request.form.username }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <p><input type="submit" class="btn btn-sm btn-primary" value="submit" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

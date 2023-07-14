@@ -1,0 +1,22 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename = 'hello.js') }}"></script>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="text-danger">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            <h3>FlaskApp is a Flask web application written in Python.</h3>
+            <input type="button" class="btn btn-primary btn-sm" onclick="sayHello()" value="Say Hello" />
+        </div>
+    </div>
+</div>
+{% endblock %}

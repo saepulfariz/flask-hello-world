@@ -1,0 +1,29 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3 text-center">
+            <table class="table">
+                <thead>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>city</td>
+                    <td>Pincode</td>
+                </thead>
+
+                {% for row in rows %}
+                <tr>
+                    <td>{{row["name"]}}</td>
+                    <td>{{row["addr"]}}</td>
+                    <td> {{ row["city"]}}</td>
+                    <td>{{row['pin']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <a href="/">Go back to home page</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

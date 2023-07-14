@@ -1,0 +1,17 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-5">
+            <form action="/setcookie" method="POST">
+                <p>
+                <h3>Enter userID</h3>
+                </p>
+                <p><input type='text' class="form-control" name='nm' /></p>
+                <p><input type='submit' class="btn btn-sm btn-primary" value='Login' /></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

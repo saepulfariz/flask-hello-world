@@ -1,0 +1,15 @@
+{% extends 'template/index.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3 text-center">
+            <h1 style="font-size: 60px;" class="text-danger">404</h1>
+            <h4>Oops! Looks like the page doesn't exist anymore</h4>
+            <a href="{{ url_for('index') }}">
+                <p>Click Here
+            </a>To go to the Home Page</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
