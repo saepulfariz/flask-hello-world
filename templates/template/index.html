@@ -10,13 +10,201 @@
     {% block head %} {% endblock %}
 </head>
 
-<body class="bg-dark text-light">
+<body class="bg-dark ">
     {% include "template/topbar.html" %}
     {% block content %} {% endblock %}
 
     <script src="{{ url_for('static', filename = 'bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'DataTables/datatables.min.js') }}"></script>
+
+    <link href="{{ url_for('static', filename = 'date/daterangepicker.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename = 'blokui.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'loader.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'date/date_moment.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'date/date_range.js') }}"></script>
+
+    <script>
+        setTimeout(function () {
+            rangetanggal();
+        }, 100);
+
+        function rangetanggal() {
+            $('#f1').daterangepicker({
+                "showDropdowns": true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '1 week ago': [moment().subtract(7, 'days'), moment()],
+                    '30 Hari yang lalu': [moment().subtract(29, 'days'), moment()],
+                    //    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    //    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "fromLabel": "From",
+                    "toLabel": "To",
+                    "customRangeLabel": "Customize",
+                    "weekLabel": "W",
+                    "daysOfWeek": [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+
+                    ],
+                    "monthNames": [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember"
+                    ],
+                    "firstDay": 1
+                },
+                "startDate": moment(),
+                // "startDate": moment().subtract(7, 'days'),
+                "endDate": moment(),
+                // departpicker, 'DD-MM-YYYY'
+
+                "opens": "left"
+            }, function (start, end, label) {
+                console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+
+            });
+
+            $('#w1').daterangepicker({
+                "showDropdowns": true,
+                ranges: {
+                    // 'Today': [moment(), moment()],
+                    // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '1 week ago': [moment().subtract(7, 'days'), moment()],
+                    '2 week ago': [moment().subtract(14, 'days'), moment().subtract(7, 'days')],
+                    '3 week ago': [moment().subtract(21, 'days'), moment().subtract(14, 'days')],
+                    '4 week ago': [moment().subtract(28, 'days'), moment().subtract(21, 'days')],
+                    // '30 Hari yang lalu': [moment().subtract(29, 'days'), moment()],
+                    //    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    //    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "fromLabel": "From",
+                    "toLabel": "To",
+                    "customRangeLabel": "Customize",
+                    "weekLabel": "W",
+                    "daysOfWeek": [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+
+                    ],
+                    "monthNames": [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember"
+                    ],
+                    "firstDay": 1
+                },
+                // "startDate": moment(),
+                "startDate": moment().subtract(7, 'days'),
+                "endDate": moment(),
+                // departpicker, 'DD-MM-YYYY'
+
+                "opens": "left"
+            }, function (start, end, label) {
+                console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+
+            });
+
+            $('#w2').daterangepicker({
+                "showDropdowns": true,
+                ranges: {
+                    // 'Today': [moment(), moment()],
+                    // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '1 week ago': [moment().subtract(7, 'days'), moment()],
+                    '2 week ago': [moment().subtract(14, 'days'), moment().subtract(7, 'days')],
+                    '3 week ago': [moment().subtract(21, 'days'), moment().subtract(14, 'days')],
+                    '4 week ago': [moment().subtract(28, 'days'), moment().subtract(21, 'days')],
+                    // '30 Hari yang lalu': [moment().subtract(29, 'days'), moment()],
+                    //    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    //    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "fromLabel": "From",
+                    "toLabel": "To",
+                    "customRangeLabel": "Customize",
+                    "weekLabel": "W",
+                    "daysOfWeek": [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+
+                    ],
+                    "monthNames": [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember"
+                    ],
+                    "firstDay": 1
+                },
+                // "startDate": moment(),
+                "startDate": moment().subtract(7, 'days'),
+                "endDate": moment(),
+                // departpicker, 'DD-MM-YYYY'
+
+                "opens": "left"
+            }, function (start, end, label) {
+                console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+
+            });
+        }
+    </script>
 
     {% block script %} {% endblock %}
 </body>

@@ -2,8 +2,9 @@ from flask import Flask, redirect, url_for, render_template, request, make_respo
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import pyodbc
+import numpy as np
 
-cnxn_str = ("DRIVER={SQL Server};SERVER=172.21.202.142;DATABASE=PCS;UID=Traceability;PWD=ability")
+cnxn_str = ("DRIVER={SQL Server};SERVER=172.21.202.142;DATABASE=PCS;UID=Traceability;PWD=ability;TrustServerCertificate=YES")
 
 cnxn = pyodbc.connect(cnxn_str, autocommit=True)
 crsr = cnxn.cursor()
@@ -68,18 +69,53 @@ def events():
    # data = crsr.execute("SELECT TOP(100) MCH_CODE FROM DC_EVENTS");
    # print(data)
 
-   cursor.execute("SELECT TOP 1000 * FROM dbo.DC_EVENTS WHERE PP_CODE ='B02' AND EV_CODE='PROD' AND EV_SUBCODE='MACH'")
-   data = cursor.fetchall()
-   return render_template("events/index.html",data = data)
+   # cursor.execute("SELECT TOP 1000 * FROM dbo.DC_EVENTS WHERE PP_CODE ='B02' AND EV_CODE='PROD' AND EV_SUBCODE='MACH'")
+   # data = cursor.fetchall()
+   # return render_template("events/index.html",data = data)
+   return render_template("events/index.html")
 
-@app.route('/events/ajax_table',methods = ['GET'])
+@app.route('/events/ajax_table',methods = ['GET', 'POST'])
 def events_ajax_table():
-   cursor.execute("SELECT TOP 1000 * FROM dbo.DC_EVENTS WHERE PP_CODE ='B02' AND EV_CODE='PROD' AND EV_SUBCODE='MACH'")
-   res = cursor.fetchall()
-   res = [tuple(row) for row in res]
-   print(res)
+   if request.method == 'POST':
+      f1 = request.form['f1']
+      print(f1)
+
+   args = request.args
+   f1 = args.get("f1")
+   # print(f1)
+   date = f1.split(' - ')
+   date1 = date[0].split('/')
+   minus = "-"
+   date1 = date1[2] + minus + date1[1]+ minus + date1[0]
+   date2 = date[1].split('/')
+   date2 = date2[2] + minus + date2[1]+ minus + date2[0]
+   # print(date1)
+   # print(date2)
+
+   sql  = """ SELECT  * FROM (
+	SELECT * FROM DC_EVENTS UNION ALL SELECT * FROM HIS_EVENTS
+) as EVENTS WHERE PP_CODE ='B02' AND EV_CODE='PROD' AND EV_SUBCODE='MACH' AND CONVERT(date, EVS_START) >= '"""+ date1 +"""' AND CONVERT(date, EVS_START) <= '"""+ date2 +"""' """
+   cursor.execute(sql)
+   columns = [column[0] for column in cursor.description]
+   # print(columns)
+   results = []
+   for row in cursor.fetchall():
+      results.append(dict(zip(columns, row)))
+
+   # res =  dict(res)
+   # print(type(res))
+   # print(res)
+   # res = np.asarray(res)
+   # print(type(res))
+   # print(res)
+   # res = [tuple(row) for row in res]
+   # print(res)
+   # print(type(res))
+   # print(res)
+
+   
    data = {
-      'data' : res
+      'data' : results
    }
    return jsonify(data)
 

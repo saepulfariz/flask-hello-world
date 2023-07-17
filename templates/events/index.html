@@ -6,38 +6,34 @@
             <h4>DATA DC_EVENTS</h4>
         </div>
     </div>
-    <div class="row">
+    <div class="row text-light">
         <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="mb-2">
+                        <label for="f1" class="text-white">Date</label>
+                        <input type="text" class="form-control mb-2" id="f1" name="f1">
+                    </div>
+                </div>
+            </div>
 
-            <table class="table" id="example">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>EV_CODE</th>
-                        <th>EV_SUBCODE</th>
-                        <th>EVS_SEQUENCE</th>
-                        <th>PP_CODE</th>
-                        <th>MCH_CODE</th>
-                        <th>MAT_SAP_CODE</th>
-                        <th>EVS_START</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for d in data %}
-                    <tr>
-                        <!-- gak bisa loop counter  forloop.counter  -->
-                        <td>{{ loop.index }}</td>
-                        <td>{{d.EV_CODE}}</td>
-                        <td>{{d.EV_SUBCODE}}</td>
-                        <td>{{d.EVS_SEQUENCE}}</td>
-                        <td>{{d.PP_CODE}}</td>
-                        <td>{{d.MCH_CODE}}</td>
-                        <td>{{d.MAT_SAP_CODE}}</td>
-                        <td>{{d.EVS_START}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div id="area_lod">
+                <table class="table " id="example">
+                    <thead>
+                        <tr>
+                            <th>EV_CODE</th>
+                            <th>EV_SUBCODE</th>
+                            <th>EVS_SEQUENCE</th>
+                            <th>PP_CODE</th>
+                            <th>MCH_CODE</th>
+                            <th>MAT_SAP_CODE</th>
+                            <th>EVS_START</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -45,6 +41,71 @@
 
 {% block script %}
 <script>
-    var dataTable = $('#example').DataTable()
+    var datatable = $('#example').DataTable({
+        processing: false,
+        fixedHeader: true,
+        responsive: true,
+        dom: 'Bflrtip',
+        "pageLength": 5,
+        "lengthMenu": [
+            [5, 100, 1000, -1],
+            [5, 100, 1000, "ALL"],
+        ],
+        ajax: {
+            url: "/events/ajax_table",
+            type: "GET",
+            data: {
+                'f1': function () {
+                    return $('#f1').val()
+                },
+            },
+            beforeSend: function () {
+                loading('area_lod');
+            },
+            complete: function () {
+                unblock('area_lod');
+            },
+        },
+        order: [],
+        columns: [
+            {
+                data: 'EV_CODE',
+            },
+            {
+                data: 'EV_SUBCODE'
+            },
+            {
+                data: 'EVS_SEQUENCE'
+            },
+            {
+                data: 'PP_CODE'
+            },
+            {
+                data: 'MCH_CODE'
+            },
+            {
+                data: 'MAT_SAP_CODE'
+            },
+            {
+                data: 'EVS_START'
+            },
+        ],
+        columnDefs: [{
+            targets: [-1],
+            orderable: false,
+            searchable: false,
+        }, //target -1 means last column
+        {
+            targets: [0],
+            searchable: false,
+        },
+        ],
+    })
+
+    function reloadTable() {
+        datatable.ajax.reload();
+    }
+
+    $('#f1').on('change', reloadTable);
 </script>
 {% endblock %}
